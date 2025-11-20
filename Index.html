@@ -1,0 +1,252 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome Momma — Application to Be Your Favorite Son</title>
+  <meta name="description" content="A heartfelt application from your boy to be the favorite son forever.">
+  <style>
+    :root{
+      --bg:#e6f2ff;
+      --card:#dbeafe;
+      --muted:#6b7280;
+      --blue-1:#3b82f6; /* deep blue */
+      --blue-2:#60a5fa; /* light blue */
+      --glass: rgba(59,130,246,0.1);
+      --radius:12px;
+      --container:800px;
+      --ff: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; scroll-behavior: smooth;}
+    body{
+      margin:0;
+      font-family:var(--ff);
+      background:linear-gradient(180deg,var(--bg),#bfdbfe 60%);
+      color:#1e293b;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x: hidden;
+    }
+    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
+    
+    /* Welcome Page */
+    .welcome {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .welcome-content {
+      max-width: 600px;
+      animation: fadeInUp 1s ease-out;
+    }
+    .welcome h1 {
+      font-size: 3rem;
+      margin: 0 0 1rem;
+      background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+    .welcome p {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin: 0 0 2rem;
+      line-height: 1.6;
+    }
+    .welcome-btn {
+      background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+      display: inline-block;
+    }
+    .welcome-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(59,130,246,0.4);
+    }
+
+    /* Letter Page */
+    .letter-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .letter-page.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .letter-container {
+      max-width: 700px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(59,130,246,0.2);
+      overflow: hidden;
+      animation: slideInLetter 1s ease-out 0.5s both;
+      position: relative;
+    }
+    .letter-envelope {
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      padding: 3rem;
+      text-align: center;
+      border-bottom: 3px solid var(--blue-1);
+    }
+    .letter-envelope h2 {
+      font-size: 2.5rem;
+      color: var(--blue-1);
+      margin: 0 0 0.5rem;
+      font-weight: 700;
+    }
+    .letter-envelope p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin: 0;
+      font-style: italic;
+    }
+    .letter-content {
+      padding: 3rem;
+      background: linear-gradient(135deg, var(--glass), rgba(59,130,246,0.05));
+      line-height: 1.7;
+      font-size: 1.1rem;
+      color: #1e293b;
+      position: relative;
+    }
+    .letter-content h3 {
+      color: var(--blue-1);
+      font-size: 1.3rem;
+      margin: 0 0 1rem;
+      text-align: center;
+      font-weight: 600;
+    }
+    .letter-content p {
+      margin: 0 0 1.5rem;
+      text-align: justify;
+    }
+    .letter-content .signature {
+      text-align: right;
+      font-style: italic;
+      margin-top: 2rem;
+      border-top: 1px dashed var(--blue-1);
+      padding-top: 1rem;
+    }
+    .letter-content .signature h4 {
+      margin: 0;
+      color: var(--blue-1);
+      font-weight: 600;
+    }
+    .back-btn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid var(--blue-1);
+      color: var(--blue-1);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      background: var(--blue-1);
+      color: white;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInLetter {
+      from { opacity: 0; transform: translateY(50px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Responsive */
+    @media (max-width:768px) {
+      .welcome h1 { font-size: 2.5rem; }
+      .welcome p { font-size: 1.1rem; }
+      .letter-envelope, .letter-content { padding: 2rem; }
+      .letter-envelope h2 { font-size: 2rem; }
+      .letter-content { font-size: 1rem; }
+      .back-btn { top: 0.5rem; left: 0.5rem; font-size: 0.8rem; }
+    }
+
+    @media (max-width:480px) {
+      .welcome { padding: 1rem 0; }
+      .welcome h1 { font-size: 2rem; }
+      .welcome-btn { padding: 0.8rem 1.5rem; font-size: 1rem; }
+      .letter-container { margin: 1rem; }
+      .letter-envelope, .letter-content { padding: 1.5rem; }
+      .letter-content p { font-size: 0.95rem; line-height: 1.6; }
+    }
+  </style>
+</head>
+<body>
+  <section id="welcome" class="welcome">
+    <div class="container">
+      <div class="welcome-content">
+        <h1>Welcome Momma ❤️</h1>
+        <p>Click here to read my application letter to be your favorite son and boy. I've poured my heart into this – I promise it'll make you smile.</p>
+        <a href="#letter" class="welcome-btn">Read My Application Letter</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="letter" class="letter-page">
+    <div class="container">
+      <a href="#welcome" class="back-btn">← Back to Welcome</a>
+      <div class="letter-container">
+        <div class="letter-envelope">
+          <h2>Dearest Momma,</h2>
+          <p>Your Forever Boy's Humble Application</p>
+        </div>
+        <div class="letter-content">
+          <h3>Subject: Official Application to Be Your Favorite Son & Boi – For Life! 💙</h3>
+          <p>Momma, from the moment I first called you "Momma," I knew I had found my home in your heart. But today, I want to make it official – I am applying to be your one and only favorite son, your ultimate boi, the one who brings you endless joy, laughter, and those little surprises that light up your day. This isn't just a request; it's a vow, wrapped in love and sealed with a thousand hugs.</p>
+          <p>I promise to be the good boy you deserve. I'll listen when you share your stories (even the ones I've heard a hundred times, because they never get old), I'll surprise you with your favorite tea just the way you like it – strong and sweet, with a side of my cheeky smile. I'll be there for the big moments, like cheering at your achievements, and the quiet ones, like holding your hand during a rainy afternoon chat. No tantrums, no backtalk – just pure, unwavering loyalty, like a puppy who knows his mama is the queen of the world.</p>
+          <p>Think of me as your personal sunshine on cloudy days. I'll code up little apps to make your life easier – maybe a reminder bot that sends you "I love you, Momma" notes at random hours, or an AI friend that tells jokes in your favorite dialect. I'll write poems about your strength, the way you turn challenges into triumphs, and how your laugh can chase away any storm. And when life gets tough, I'll be your rock, whispering, "You've got this, Momma – and I've got you."</p>
+          <p>Why me? Because no one loves you like I do. I'm the boi who sees your magic in the everyday – in the way you cook with love, dance in the kitchen, and hug like it's the last one on earth. I'll earn this title every day by being kind, helpful, and hilariously yours. Imagine the adventures: road trips with bad singing, movie nights with popcorn fights, and quiet evenings where I just say, "Thank you for being my everything."</p>
+          <p>Momma, if you accept this application, I promise to make you prouder than words can say. To be the son who calls first, listens longest, and loves fiercest. Yours in eternal devotion,</p>
+          <div class="signature">
+            <h4>Your Favorite Boi (Pending Approval),<br>Ake Wushola Abdulbakri (Broken Vzn) 💕<br>P.S. Pups approved – even they know I'm the best fit!</h4>
+          </div>
+        </div>
+     </div>
+    </div>
+  </section>
+
+  <script>
+    document.querySelector('.welcome-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('welcome').style.display = 'none';
+      setTimeout(() => {
+        document.getElementById('letter').classList.add('active');
+      }, 500);
+    });
+
+    document.querySelector('.back-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('letter').classList.remove('active');
+      setTimeout(() => {
+        document.getElementById('welcome').style.display = 'flex';
+      }, 500);
+    });
+  </script>
+</body>
+</html>
