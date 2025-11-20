@@ -8,13 +8,13 @@
   <meta name="description" content="A heartfelt application from your boy to be the favorite son forever.">
   <style>
     :root{
-      --bg:#e6f2ff;
-      --card:#dbeafe;
-      --muted:#6b7280;
+      --bg:#0f172a;
+      --card:#1e293b;
+      --muted:#94a3b8;
       --blue-1:#3b82f6; /* deep blue */
       --blue-2:#60a5fa; /* light blue */
       --glass: rgba(59,130,246,0.1);
-      --radius:12px;
+      --radius:16px;
       --container:800px;
       --ff: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, serif;
     }
@@ -23,11 +23,28 @@
     body{
       margin:0;
       font-family:var(--ff);
-      background:linear-gradient(180deg,var(--bg),#bfdbfe 60%);
-      color:#1e293b;
+      background:linear-gradient(180deg,var(--bg),#000000fa 60%);
+      color:#e6eef6;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%2360a5fa" stop-opacity="0.1"/><stop offset="100%" stop-color="%233b82f6" stop-opacity="0"/></radialGradient></defs><circle cx="100" cy="100" r="20" fill="url(%23a)"><animate attributeName="cy" dur="10s" values="0;200;0" repeatCount="indefinite"/></circle><circle cx="300" cy="300" r="15" fill="url(%23a)"><animate attributeName="cy" dur="15s" values="0;400;0" repeatCount="indefinite"/></circle><circle cx="600" cy="200" r="25" fill="url(%23a)"><animate attributeName="cy" dur="12s" values="0;300;0" repeatCount="indefinite"/></circle></svg>') no-repeat center/cover;
+      pointer-events: none;
+      z-index: -1;
+      animation: float 20s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
     }
     .container{max-width:var(--container);margin:0 auto;padding:0 20px}
     
@@ -39,10 +56,47 @@
       justify-content: center;
       text-align: center;
       padding: 2rem 0;
+      position: relative;
+    }
+    .welcome::before {
+      content: '💙';
+      position: absolute;
+      top: 20%; left: 10%; font-size: 3rem; animation: floatEmoji 8s ease-in-out infinite;
+    }
+    .welcome::after {
+      content: '✨';
+      position: absolute;
+      bottom: 20%; right: 10%; font-size: 4rem; animation: floatEmoji 10s ease-in-out infinite reverse;
+    }
+    @keyframes floatEmoji {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateY(-20px) rotate(10deg); opacity: 1; }
     }
     .welcome-content {
       max-width: 600px;
+      background: var(--card);
+      padding: 3rem;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 40px rgba(59,130,246,0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass);
       animation: fadeInUp 1s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-content::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+    }
+    .welcome-content img.anime-char {
+      width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 1rem; display: block;
+      box-shadow: 0 10px 30px rgba(59,130,246,0.3); animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
     .welcome h1 {
       font-size: 3rem;
@@ -70,6 +124,11 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(59,130,246,0.3);
       display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-btn::before {
+      content: '💌'; margin-right: 0.5rem;
     }
     .welcome-btn:hover {
       transform: translateY(-3px);
@@ -86,48 +145,68 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.5s ease, visibility 0.5s ease;
+      position: relative;
     }
     .letter-page.active {
       opacity: 1;
       visibility: visible;
     }
+    .letter-page::before {
+      content: '🥰'; position: absolute; top: 10%; left: 5%; font-size: 3rem; animation: popEmoji 3s ease-in-out infinite;
+    }
+    .letter-page::after {
+      content: '💞'; position: absolute; bottom: 10%; right: 5%; font-size: 4rem; animation: popEmoji 4s ease-in-out infinite reverse;
+    }
+    @keyframes popEmoji {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+      50% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+    }
     .letter-container {
       max-width: 700px;
-      background: white;
+      background: var(--card);
       border-radius: var(--radius);
-      box-shadow: 0 10px 30px rgba(59,130,246,0.2);
+      box-shadow: 0 20px 40px rgba(59,130,246,0.2);
       overflow: hidden;
       animation: slideInLetter 1s ease-out 0.5s both;
       position: relative;
+      border: 1px solid var(--glass);
+      backdrop-filter: blur(10px);
     }
     .letter-envelope {
-      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
       padding: 3rem;
       text-align: center;
-      border-bottom: 3px solid var(--blue-1);
+      color: white;
+      position: relative;
+    }
+    .letter-envelope::before {
+      content: '✨'; position: absolute; top: 1rem; right: 1rem; font-size: 2rem; animation: sparkle 2s ease-in-out infinite;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
     }
     .letter-envelope h2 {
       font-size: 2.5rem;
-      color: var(--blue-1);
       margin: 0 0 0.5rem;
       font-weight: 700;
     }
     .letter-envelope p {
       font-size: 1.1rem;
-      color: var(--muted);
       margin: 0;
       font-style: italic;
+      opacity: 0.9;
     }
     .letter-content {
       padding: 3rem;
-      background: linear-gradient(135deg, var(--glass), rgba(59,130,246,0.05));
       line-height: 1.7;
       font-size: 1.1rem;
-      color: #1e293b;
+      color: #e6eef6;
       position: relative;
+      background: var(--glass);
     }
     .letter-content h3 {
-      color: var(--blue-1);
+      color: var(--blue-2);
       font-size: 1.3rem;
       margin: 0 0 1rem;
       text-align: center;
@@ -136,6 +215,14 @@
     .letter-content p {
       margin: 0 0 1.5rem;
       text-align: justify;
+      position: relative;
+    }
+    .letter-content p::after {
+      content: '🌚'; position: absolute; right: -1rem; bottom: -0.5rem; font-size: 1.5rem; opacity: 0; animation: emojiPop 4s ease-in-out infinite;
+    }
+    @keyframes emojiPop {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
     }
     .letter-content .signature {
       text-align: right;
@@ -143,28 +230,64 @@
       margin-top: 2rem;
       border-top: 1px dashed var(--blue-1);
       padding-top: 1rem;
+      color: var(--blue-2);
     }
     .letter-content .signature h4 {
       margin: 0;
-      color: var(--blue-1);
       font-weight: 600;
     }
     .back-btn {
       position: absolute;
       top: 1rem;
       left: 1rem;
-      background: rgba(59,130,246,0.1);
+      background: var(--glass);
       border: 1px solid var(--blue-1);
-      color: var(--blue-1);
+      color: var(--blue-2);
       padding: 0.5rem 1rem;
       border-radius: 6px;
       text-decoration: none;
       font-size: 0.9rem;
       transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
     }
     .back-btn:hover {
       background: var(--blue-1);
       color: white;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--glass);
+    }
+    .contact-card {
+      background: var(--glass);
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59,130,246,0.2);
+    }
+    .contact-card a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+      padding: 0.75rem;
+      border-radius: 6px;
+      background: var(--blue-1);
+      transition: all 0.3s ease;
+    }
+    .contact-card a:hover {
+      background: var(--blue-2);
+    }
+    .contact-card i {
+      font-size: 1.5rem; margin-bottom: 0.5rem; display: block;
     }
 
     /* Animations */
@@ -185,6 +308,8 @@
       .letter-envelope h2 { font-size: 2rem; }
       .letter-content { font-size: 1rem; }
       .back-btn { top: 0.5rem; left: 0.5rem; font-size: 0.8rem; }
+      .contact-cards { grid-template-columns: 1fr; }
+      .welcome-content img.anime-char { width: 120px; height: 120px; }
     }
 
     @media (max-width:480px) {
@@ -194,6 +319,7 @@
       .letter-container { margin: 1rem; }
       .letter-envelope, .letter-content { padding: 1.5rem; }
       .letter-content p { font-size: 0.95rem; line-height: 1.6; }
+      .welcome-content { padding: 2rem 1.5rem; }
     }
   </style>
 </head>
@@ -201,9 +327,10 @@
   <section id="welcome" class="welcome">
     <div class="container">
       <div class="welcome-content">
-        <h1>Welcome Momma ❤️</h1>
-        <p>Click here to read my application letter to be your favorite son and boy. I've poured my heart into this – I promise it'll make you smile.</p>
-        <a href="#letter" class="welcome-btn">Read My Application Letter</a>
+        <img src="https://i.imgur.com/abc123.jpg" alt="Anime Character" class="anime-char"> <!-- Replace with actual anime boy image URL -->
+        <h1>Welcome Momma 💙</h1>
+        <p>Click here to read my application letter to be your favorite son and boy. I've poured my heart into this – I promise it'll make you smile and melt your heart.</p>
+        <a href="#letter" class="welcome-btn">Read My Application Letter ✨</a>
       </div>
     </div>
   </section>
@@ -214,20 +341,30 @@
       <div class="letter-container">
         <div class="letter-envelope">
           <h2>Dearest Momma,</h2>
-          <p>Your Forever Boy's Humble Application</p>
+          <p>Your Forever Boy's Humble Application 💌</p>
         </div>
         <div class="letter-content">
-          <h3>Subject: Official Application to Be Your Favorite Son & Boi – For Life! 💙</h3>
-          <p>Momma, from the moment I first called you "Momma," I knew I had found my home in your heart. But today, I want to make it official – I am applying to be your one and only favorite son, your ultimate boi, the one who brings you endless joy, laughter, and those little surprises that light up your day. This isn't just a request; it's a vow, wrapped in love and sealed with a thousand hugs.</p>
-          <p>I promise to be the good boy you deserve. I'll listen when you share your stories (even the ones I've heard a hundred times, because they never get old), I'll surprise you with your favorite tea just the way you like it – strong and sweet, with a side of my cheeky smile. I'll be there for the big moments, like cheering at your achievements, and the quiet ones, like holding your hand during a rainy afternoon chat. No tantrums, no backtalk – just pure, unwavering loyalty, like a puppy who knows his mama is the queen of the world.</p>
-          <p>Think of me as your personal sunshine on cloudy days. I'll code up little apps to make your life easier – maybe a reminder bot that sends you "I love you, Momma" notes at random hours, or an AI friend that tells jokes in your favorite dialect. I'll write poems about your strength, the way you turn challenges into triumphs, and how your laugh can chase away any storm. And when life gets tough, I'll be your rock, whispering, "You've got this, Momma – and I've got you."</p>
-          <p>Why me? Because no one loves you like I do. I'm the boi who sees your magic in the everyday – in the way you cook with love, dance in the kitchen, and hug like it's the last one on earth. I'll earn this title every day by being kind, helpful, and hilariously yours. Imagine the adventures: road trips with bad singing, movie nights with popcorn fights, and quiet evenings where I just say, "Thank you for being my everything."</p>
+          <h3>Subject: Official Application to Be Your Favorite Son & Boi – For Life! 🥰</h3>
+          <p>Momma, from the moment I first called you "Momma," I knew I had found my home in your heart. But today, I want to make it official – I am applying to be your one and only favorite son, your ultimate boi, the one who brings you endless joy, laughter, and those little surprises that light up your day. This isn't just a request; it's a vow, wrapped in love and sealed with a thousand hugs. 💞</p>
+          <p>I promise to be the good boy you deserve. I'll listen when you share your stories (even the ones I've heard a hundred times, because they never get old), I'll surprise you with your favorite tea just the way you like it – strong and sweet, with a side of my cheeky smile. I'll be there for the big moments, like cheering at your achievements, and the quiet ones, like holding your hand during a rainy afternoon chat. No tantrums, no backtalk – just pure, unwavering loyalty, like a puppy who knows his mama is the queen of the world. ✨</p>
+          <p>Think of me as your personal sunshine on cloudy days. I'll code up little apps to make your life easier – maybe a reminder bot that sends you "I love you, Momma" notes at random hours, or an AI friend that tells jokes in your favorite dialect. I'll write poems about your strength, the way you turn challenges into triumphs, and how your laugh can chase away any storm. And when life gets tough, I'll be your rock, whispering, "You've got this, Momma – and I've got you." 🌚</p>
+          <p>Why me? Because no one loves you like I do. I'm the boi who sees your magic in the everyday – in the way you cook with love, dance in the kitchen, and hug like it's the last one on earth. I'll earn this title every day by being kind, helpful, and hilariously yours. Imagine the adventures: road trips with bad singing, movie nights with popcorn fights, and quiet evenings where I just say, "Thank you for being my everything." 🥰</p>
           <p>Momma, if you accept this application, I promise to make you prouder than words can say. To be the son who calls first, listens longest, and loves fiercest. Yours in eternal devotion,</p>
           <div class="signature">
-            <h4>Your Favorite Boi (Pending Approval),<br>Ake Wushola Abdulbakri (Broken Vzn) 💕<br>P.S. Pups approved – even they know I'm the best fit!</h4>
+            <h4>Your Favorite Boi (Pending Approval),<br>Ake Wushola Abdulbakri (Broken Vzn) 💕<br>P.S. Pups approved – even they know I'm the best fit! 💞</h4>
+          </div>
+          <div class="contact-cards">
+            <div class="contact-card">
+              <i>📱</i>
+              <a href="https://wa.me/2349031575131" target="_blank">Text Broken Vzn on WhatsApp<br>+234 903 157 5131</a>
+            </div>
+            <div class="contact-card">
+              <i>📘</i>
+              <a href="https://www.facebook.com/profile.php?id=61579974303119" target="_blank">Message on Facebook</a>
+            </div>
           </div>
         </div>
-     </div>
+      </div>
     </div>
   </section>
 
